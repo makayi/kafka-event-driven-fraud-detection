@@ -11,12 +11,14 @@ services:
       - PORT="8529"
       - USER="root"
   generator:
+    container_name: producer
     build: './generator'
     environment: 
       KAFKA_BROKER_URL: broker:9092
       TRANSACTIONS_TOPIC: queueing.transactions
       TRANSACTIONS_PER_SECOND: 1000
   detector:
+    container_name: consumer
     build: ./detector
     depends_on:
       - arrangodb

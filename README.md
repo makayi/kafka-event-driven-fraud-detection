@@ -20,3 +20,10 @@ To  build docker images for the Kafka producers and consumers run the following 
 ```
 docker-compose -f "docker-compose.yml" up -d --build
 ```
+## Views Consumer Logs
+To view the fraudulent transaction detected  run the following docker command
+
+```
+docker logs -f consumer
+```
+
