@@ -1,6 +1,15 @@
 version: '3'
 
 services:
+  arrangodb:
+    container_name: arrangodb
+    image: "arangodb:latest"
+    ports:
+      - "8529:8529"
+    environment: 
+      - ARANGO_NO_AUTH=1
+      - PORT="8529"
+      - USER="root"
   generator:
     build: './generator'
     environment: 
@@ -9,11 +18,21 @@ services:
       TRANSACTIONS_PER_SECOND: 1000
   detector:
     build: ./detector
+    depends_on:
+      - arrangodb
+      - generator
     environment:
       KAFKA_BROKER_URL: broker:9092
       TRANSACTIONS_TOPIC: queueing.transactions
       LEGIT_TOPIC: streaming.transactions.legit
       FRAUD_TOPIC: streaming.transactions.fraud
+      ARRANGO_ROOT_PASSWORD: None
+      ARRANGO_PORT: 8529
+      ARRANGO_USER: root
+      ARRANGO_DB: kafka_db_
+      ARRANGO_IP: arrangodb
+      ARRANGO_COLLECTION: students
+      ARRANGO_PROTOCOL: http
 
 networks:
   default:
