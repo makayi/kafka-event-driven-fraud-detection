@@ -22,9 +22,9 @@ def is_suspicious(transaction: dict) -> bool:
 
 
 if __name__ == '__main__':
-    longtermStorage = ArrangoStorage(ARRANGO_PROTOCOL, ARRANGO_IP, ARRANGO_PORT, ARRANGO_USER, ARRANGO_PASSWORD,
-                                     ARRANGO_DB, ARRANGO_COLLECTION)
-    database = longtermStorage.connect()
+    #  longtermStorage = ArrangoStorage(ARRANGO_PROTOCOL, ARRANGO_IP, ARRANGO_PORT, ARRANGO_USER, ARRANGO_PASSWORD,
+    #                                  ARRANGO_DB, ARRANGO_COLLECTION)
+    # database = longtermStorage.connect()
     consumer = KafkaConsumer(
         TRANSACTIONS_TOPIC,
         bootstrap_servers=KAFKA_BROKER_URL,
@@ -41,4 +41,4 @@ if __name__ == '__main__':
 
         # longtermStorage.store(database, message)
 
-        # print(topic, transaction)  # DEBUG
+        print(topic, transaction)  # DEBUG
